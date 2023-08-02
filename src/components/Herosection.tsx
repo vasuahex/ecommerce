@@ -1,27 +1,32 @@
 import styled from 'styled-components'
-import {NavLink} from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Button } from '../styles/Button'
 const Herosection = () => {
   return (
     <Wrapper>
-        <div className='container'>
-            <div className='grid grid-two-column'>
-                <div className='hero-section-data'>
-                    <p className='intro-data'>Welcome To</p>
-                    <h1>Vasu Store</h1>
-                    <p>
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae impedit unde suscipit animi sapiente omnis nisi asperiores possimus minus, commodi non, voluptates cum, optio quia rerum sint officia soluta facere.
-                    </p>
-                    <NavLink to="/products">
-                        <Button>show more</Button>
-                    </NavLink>
-                </div>
-            </div>
+      <div className='container'>
+        <div className='grid grid-two-column'>
+          <div className='hero-section-data'>
+            <p className='intro-data'>Welcome To</p>
+            <h1>Vasu Store</h1>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae impedit unde suscipit animi sapiente omnis nisi asperiores possimus minus, commodi non, voluptates cum, optio quia rerum sint officia soluta facere.
+            </p>
+            <NavLink to="/products">
+              <Button>show more</Button>
+            </NavLink>
+          </div>
+          <div className='hero-section-image'>
+            <figure>
+              <img src='images/hero.jpg' alt="hero" className='img-style' />
+            </figure>
+          </div>
         </div>
+      </div>
     </Wrapper>
   )
 }
-const Wrapper=styled.section`
+const Wrapper = styled.section`
 padding: 12rem 0;
 
   img {
