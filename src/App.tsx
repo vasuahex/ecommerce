@@ -6,7 +6,7 @@ import Contact from "./Contact";
 import SingleProduct from "./SingleProduct";
 import { ReactNode } from "react";
 import Cart from "./Cart";
-import ErrorPage from "./ErrorPage";
+import Errorpage from "./ErrorPage";
 import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
@@ -52,7 +52,7 @@ const App = (): ReactNode => {
           <Route path='/contact' element={<Contact />} />
           <Route path='/singleproduct/:id' element={<SingleProduct />} />
           <Route path='/cart' element={<Cart/>}/>
-          <Route path='*' element={<ErrorPage/>}/>
+          <Route path='*' element={<Errorpage/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>

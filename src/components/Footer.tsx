@@ -66,7 +66,7 @@ const Footer = () => {
                 </div>
 
                 <div className="footer-bottom--section">
-                    <hr/>
+                    <hr />
                     <div className="container grid grid-two-column">
                         <p>@{new Date().getFullYear()} Srinivasa Reddy all rights reserved</p>
 
