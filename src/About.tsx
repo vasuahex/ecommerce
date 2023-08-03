@@ -1,7 +1,11 @@
+import Herosection from "./components/Herosection"
 
 const About = () => {
+  const data={
+    name:"Vasu ecommerce"
+  }
   return (
-    <div>About</div>
+    <Herosection Data={data}/>
   )
 }
 

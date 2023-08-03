@@ -1,14 +1,21 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { Button } from '../styles/Button'
-const Herosection = () => {
+
+interface HerosectionProps {
+  Data: {
+    name: string;
+  };
+}
+const Herosection : React.FC<HerosectionProps> = ({Data})=> {
+  const {name}=Data
   return (
-    <Wrapper>
+    <Wrapper> 
       <div className='container'>
         <div className='grid grid-two-column'>
           <div className='hero-section-data'>
             <p className='intro-data'>Welcome To</p>
-            <h1>Vasu Store</h1>
+            <h1>{name}</h1>
             <p>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae impedit unde suscipit animi sapiente omnis nisi asperiores possimus minus, commodi non, voluptates cum, optio quia rerum sint officia soluta facere.
             </p>
