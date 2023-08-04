@@ -21,7 +21,8 @@ export interface InitialState {
     isError: boolean,
     products: any,
     featureProducts: Product[],
-
+    isSingleLoading: boolean,
+    singleProduct: any,
 }
 
 export const AppContext = createContext<InitialState | undefined>(undefined)
@@ -32,8 +33,12 @@ const initialState: InitialState = {
     isLoading: false,
     isError: false,
     products: [],
-    featureProducts: []
+    featureProducts: [],
+    isSingleLoading: false,
+    singleProduct: {}
 }
+
+
 
 export const AppProvider = ({ children }: AppProviderProps) => {
 
@@ -49,12 +54,27 @@ export const AppProvider = ({ children }: AppProviderProps) => {
             dispatch({ type: "API_ERROR" })
         }
     }
+
+    const getSingleProduct = async (url: string) => {
+        dispatch({ type: "SET_SINGLE_LOADING" })
+        try {
+            const res = await axios.get(url)
+            const singleProduct = await res.data
+            dispatch({ type: "SET_SINGLE_PRODUCT", payload: singleProduct })
+   
+        } catch (error) {
+            dispatch({ type: "SET_SINGLE_ERROR" })
+
+        }
+    }
+
+
     useEffect(() => {
         getProducts(API)
     }, [])
 
     return (
-        <AppContext.Provider value={{ ...state }}>
+        <AppContext.Provider value={{ ...state ,getSingleProduct}}>
             {children}
         </AppContext.Provider>)
 }

@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import FormalPrice from "../Helpers/FormalPrice"
 
 const Product = (curEle:any) => {
     const { id, name, image, price, category } = curEle
@@ -12,7 +13,7 @@ const Product = (curEle:any) => {
                 <div className="card-data">
                     <div className="card-data-flex">
                         <h3>{name}</h3>
-                        <p className="card-data--price">{price}</p>
+                        <p className="card-data--price">{<FormalPrice price={price}/>}</p>
                     </div>
                 </div>
             </div>

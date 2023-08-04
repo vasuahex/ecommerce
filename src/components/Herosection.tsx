@@ -98,4 +98,4 @@ padding: 12rem 0;
     }
   }
 `
-export default Herosection
+export default Herosection;

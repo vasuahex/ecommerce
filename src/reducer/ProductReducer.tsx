@@ -1,3 +1,4 @@
+
 const ProductReducer = (state: any, action: any) => {
     if (action.type === "SET_LOADING") {
         return {
@@ -26,7 +27,33 @@ const ProductReducer = (state: any, action: any) => {
             featureProducts: featureData,
         }
     }
-    return state
 
-}
-export default ProductReducer
+
+
+
+    if (action.type === "SET_SINGLE_LOADING") {
+        return {
+            ...state,
+            isSingleLoading: true
+        }
+    }
+    if (action.type === "SET_SINGLE_ERROR") {
+        return {
+            ...state,
+            isSingleLoading: false,
+            isError: true
+        }
+    }
+
+    if (action.type === "SET_SINGLE_PRODUCT") {
+
+        return {
+            ...state,
+            isLoading: false,
+            singleProduct: action.payload,
+
+        }
+    }  
+    return state
+};
+export default ProductReducer;
