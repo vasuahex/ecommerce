@@ -9,20 +9,21 @@ import FormalPrice from "./Helpers/FormalPrice";
 import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
 import Star from "./components/Star";
+import AddToCart from "./components/AddToCart";
 
 const SingleProduct = () => {
   const API = "https://api.pujakaitem.com/api/products"
   const { isSingleLoading, singleProduct, getSingleProduct } = useProductContext() as any
   const { id } = useParams()
-  const { id: alias, name, company, price, description, category, stock, stars, reviews ,image} = singleProduct as any
+  const { id: alias, name, company, price, description, category, stock, stars, reviews, image } = singleProduct as any
 
 
-  
+
   useEffect(() => {
     getSingleProduct(`${API}?id=${id}`)
   }, [])
 
- 
+
   return (
     <Wrapper>
       <PageNavigation title={name} />
@@ -36,7 +37,7 @@ const SingleProduct = () => {
           {/* product dAta  */}
           <div className="product-data">
             <h2>{name}</h2>
-            <Star stars={stars} reviews={reviews}/>
+            <Star stars={stars} reviews={reviews} />
             <p>{reviews} reviews</p>
 
             <p className="product-data-price">
@@ -74,7 +75,7 @@ const SingleProduct = () => {
             <div className="product-data-info">
               <p>
                 Availability:
-                <span> {stock>0?"In stock":"Not Available"}</span>
+                <span> {stock > 0 ? "In stock" : "Not Available"}</span>
               </p>
               <p>
                 ID : <span> {id} </span>
@@ -84,7 +85,7 @@ const SingleProduct = () => {
               </p>
             </div>
             <hr />
-            {stock}
+            {stock > 0 && <AddToCart product={singleProduct}/>}
           </div>
         </div>
       </Container>
