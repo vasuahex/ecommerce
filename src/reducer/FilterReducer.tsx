@@ -28,11 +28,11 @@ const FilterReducer = (state: any, action: any) => {
             }
         case 'SORTING_PRODUCTS':
             let newSortData;
-      
+
             const { filter_products, sorting_value } = state;
             let tempSortProduct = [...filter_products];
 
-            const sortingProducts = (a:any, b:any) => {
+            const sortingProducts = (a: any, b: any) => {
                 if (sorting_value === "lowest") {
                     return a.price - b.price;
                 }
@@ -54,6 +54,53 @@ const FilterReducer = (state: any, action: any) => {
             return {
                 ...state,
                 filter_products: newSortData
+            }
+
+        case 'UPDATE_FILTER-VALUE':
+            const { name, value } = action.payload as any
+
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    [name]: value
+                }
+            }
+
+        case "FILTER_PRODUCTS":
+            let { all_products } = state
+            // console.log(all_products);
+            
+            let tempFilterProduct = [...all_products]
+            const { text,category,company,color } = state.filters
+            console.log(category);
+            
+
+            if (text) {
+                tempFilterProduct = tempFilterProduct.filter((each: any) => {
+                    return each.name.toLowerCase().includes(text)
+                })
+            }
+            if (category!=="all") {
+                tempFilterProduct = tempFilterProduct.filter((each: any) => {
+                    return each.category===category
+                })
+            }
+           
+            if (company!=="all") {
+                tempFilterProduct = tempFilterProduct.filter((each: any) => {
+                    return each.company.toLowerCase() === company.toLowerCase()
+                })
+            }
+           
+            if (color!=="all") {
+                tempFilterProduct = tempFilterProduct.filter((each: any) => {
+                    return each.colors.includes(color)
+                })
+            }
+            return {
+                ...state,
+                filter_products: tempFilterProduct
             }
         default:
             return state;

@@ -6,7 +6,7 @@ import { useFilterContext } from "./context/Filtercontext";
 
 const Products = () => {
   const { filter_products } = useFilterContext() as any
-  console.log(filter_products);
+  // console.log(filter_products);
 
   return <Wrapper>
     <div className="container grid grid-filter-column">

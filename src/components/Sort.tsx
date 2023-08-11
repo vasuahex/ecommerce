@@ -4,7 +4,6 @@ import { useFilterContext } from "../context/Filtercontext";
 const Sort = () => {
   const { sorting,filter_products, grid_view, setGridView, setListView } = useFilterContext() as any
   // console.log(state, grid_view, setGridView, setListView);
-
   return (
     <Wrapper className="sort-selection">
       <div className="sorting-list--grid">
@@ -14,9 +13,7 @@ const Sort = () => {
         <button className={!grid_view ? "active sort-btn " : "sort-btn"} onClick={setListView}>
           <BsList className="icon" />
         </button>
-
       </div>
-
       <div className="product-data">
         <p>{`${filter_products.length}`} products available</p>
       </div>
@@ -32,13 +29,12 @@ const Sort = () => {
             <option value="#" disabled></option>
             <option value="highest">Price(highest)</option>
             <option value="#" disabled></option>
-            <option value="a-z">Price(a-z)</option>
+            <option value="a-z">name(a-z)</option>
             <option value="#" disabled></option>
-            <option value="z-a">Price(z-a)</option>
+            <option value="z-a">name(z-a)</option>
           </select>
         </form>
       </div>
-
     </Wrapper>
   )
 }
