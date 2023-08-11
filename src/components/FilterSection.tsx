@@ -1,5 +1,6 @@
 import { styled } from "styled-components"
 import { useFilterContext } from "../context/Filtercontext"
+import { FaCheck } from "react-icons/fa"
 const FilterSection = () => {
   const { filters: { text, category, color }, updateFilterValue, all_products } = useFilterContext() as any
 
@@ -9,15 +10,19 @@ const FilterSection = () => {
     })
     if (property === "colors") {
       // return ["all",...new Set([].concat(new_val))]
-      new_val = new_val.flat()
+      new_val = [...new_val.flat()]
+
     }
     return new_val = ["all", ...new Set(new_val)]
   }
   const categoryOnlyData = getUniqueData(all_products, "category")
   const companyOnlyData = getUniqueData(all_products, "company")
   const colorsOnlyData = getUniqueData(all_products, "colors")
+  console.log(colorsOnlyData);
+
   return (
     <Wrapper>
+      <div className="fixed">
       <div className="filter-search">
         <form onSubmit={(e) => e.preventDefault()}>
           <input type="text" name="text" value={text} onChange={updateFilterValue} placeholder="SEARCH" />
@@ -59,16 +64,27 @@ const FilterSection = () => {
         <h3>COLORS</h3>
         <div className="filter-color-style">
           {colorsOnlyData.map((each: any, index: number) => {
+            if (each === "all") {
+              return (
+                <button key={index} className="color-all--style" type="button" 
+                  value={each} name="color"
+                  onClick={updateFilterValue}
+                >
+                  All
+                </button>
+              )
+            }
             return (
-              <button key={index} className="btnStyle" type="button" style={{ backgroundColor: each }}
+              <button key={index} className={color === each ? "btnStyle active" : "btnStyle"} type="button" style={{ backgroundColor: each }}
                 value={each} name="color"
                 onClick={updateFilterValue}
               >
-                {color === each ? "" : null}
+                {color === each ? <FaCheck className="checkStyle"/> : null}
               </button>
             )
           })}
         </div>
+      </div>
       </div>
     </Wrapper>
   )
@@ -177,5 +193,6 @@ const Wrapper = styled.section`
   .filter-clear .btn {
     background-color: #ec7063;
     color: #000;
-  }`
+  }
+  `
 export default FilterSection
