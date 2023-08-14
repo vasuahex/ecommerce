@@ -1,8 +1,10 @@
 import { styled } from "styled-components"
 import { useFilterContext } from "../context/Filtercontext"
 import { FaCheck } from "react-icons/fa"
+import FormalPrice from "../Helpers/FormalPrice"
+import { Button } from "../styles/Button"
 const FilterSection = () => {
-  const { filters: { text, category, color }, updateFilterValue, all_products } = useFilterContext() as any
+  const { filters: { text, category, color, price, maxPrice, minPrice }, updateFilterValue, all_products, clearFilters } = useFilterContext() as any
 
   const getUniqueData = (data: any, property: string) => {
     let new_val = data.map((each: any) => {
@@ -18,73 +20,80 @@ const FilterSection = () => {
   const categoryOnlyData = getUniqueData(all_products, "category")
   const companyOnlyData = getUniqueData(all_products, "company")
   const colorsOnlyData = getUniqueData(all_products, "colors")
-  console.log(colorsOnlyData);
+  // console.log(colorsOnlyData);
 
   return (
     <Wrapper>
       <div className="fixed">
-      <div className="filter-search">
-        <form onSubmit={(e) => e.preventDefault()}>
-          <input type="text" name="text" value={text} onChange={updateFilterValue} placeholder="SEARCH" />
-        </form>
-      </div>
-
-      <div className="filter-category">
-        <div>
-          <h3 >CATEGORY</h3>
-          {categoryOnlyData.map((each: any, index: number) => {
-            return <button key={index} type="button" name='category' value={each} className={each === category ? "active" : ""} onClick={updateFilterValue}>
-              {each}
-            </button>
-          })}
+        <div className="filter-search">
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input type="text" name="text" value={text} onChange={updateFilterValue} placeholder="SEARCH" />
+          </form>
         </div>
-      </div>
 
-      <div className="filter-company">
-        <h3>COMPANY</h3>
+        <div className="filter-category">
+          <div>
+            <h3 >CATEGORY</h3>
+            {categoryOnlyData.map((each: any, index: number) => {
+              return <button key={index} type="button" name='category' value={each} className={each === category ? "active" : ""} onClick={updateFilterValue}>
+                {each}
+              </button>
+            })}
+          </div>
+        </div>
 
-        <form action="#">
-          <select
-            name="company"
-            id="company"
-            className="filter-company--select"
-            onChange={updateFilterValue}
-          >
-            {companyOnlyData.map((curElem: any, index: number) => {
-              return (
-                <option key={index} value={curElem} label={curElem}>
+        <div className="filter-company">
+          <h3>COMPANY</h3>
+          <form action="#">
+            <select
+              name="company"
+              id="company"
+              className="filter-company--select"
+              onChange={updateFilterValue}  // Changed onClick to onChange for select element
+            >
+              {companyOnlyData.map((curElem: any, index: number) => (
+                <option key={index} value={curElem}>
                   {curElem}
                 </option>
-              );
-            })}
-          </select>
-        </form>
-      </div>
-      <div className="filter-colors colors">
-        <h3>COLORS</h3>
-        <div className="filter-color-style">
-          {colorsOnlyData.map((each: any, index: number) => {
-            if (each === "all") {
+              ))}
+            </select>
+          </form>
+        </div>
+
+        <div className="filter-colors colors">
+          <h3>COLORS</h3>
+          <div className="filter-color-style">
+            {colorsOnlyData.map((each: any, index: number) => {
+              if (each === "all") {
+                return (
+                  <button key={index} className="color-all--style" type="button"
+                    value={each} name="color"
+                    onClick={updateFilterValue}
+                  >
+                    All
+                  </button>
+                )
+              }
               return (
-                <button key={index} className="color-all--style" type="button" 
+                <button key={index} className={color === each ? "btnStyle active" : "btnStyle"} type="button" style={{ backgroundColor: each }}
                   value={each} name="color"
                   onClick={updateFilterValue}
                 >
-                  All
+                  {color === each ? <FaCheck className="checkStyle" /> : null}
                 </button>
               )
-            }
-            return (
-              <button key={index} className={color === each ? "btnStyle active" : "btnStyle"} type="button" style={{ backgroundColor: each }}
-                value={each} name="color"
-                onClick={updateFilterValue}
-              >
-                {color === each ? <FaCheck className="checkStyle"/> : null}
-              </button>
-            )
-          })}
+            })}
+          </div>
         </div>
       </div>
+      <div className="filter_price">
+        <h3>price</h3>
+        <p><FormalPrice price={price} /></p>
+        <input type="range" name="price" min={minPrice} max={maxPrice} value={price} onChange={updateFilterValue} />
+      </div>
+
+      <div className="filter-clear">
+        <Button className="btn" onClick={clearFilters}>Clear Filter</Button>
       </div>
     </Wrapper>
   )

@@ -11,6 +11,8 @@ import { GlobalStyle } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import Header from "./components/Header";
 import Footer from './components/Footer'
+import LoginForm from "./Authentication/Login";
+import RegistrationForm from "./Authentication/Register";
 
 const App = (): ReactNode => {
 
@@ -38,24 +40,26 @@ const App = (): ReactNode => {
       tab: "998px",
     },
   };
-  
+
   return (
     <div>
       <ThemeProvider theme={theme}>
-      <BrowserRouter>
-      <GlobalStyle/>
-      <Header/>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/about' element={<About />} />
-          <Route path='/products' element={<Products />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/singleproduct/:id' element={<SingleProduct />} />
-          <Route path='/cart' element={<Cart/>}/>
-          <Route path='*' element={<Errorpage/>}/>
-        </Routes>
-        <Footer/>
-      </BrowserRouter>
+        <BrowserRouter>
+          <GlobalStyle />
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/about' element={<About />} />
+            <Route path='/products' element={<Products />} />
+            <Route path='/contact' element={<Contact />} />
+            <Route path='/singleproduct/:id' element={<SingleProduct />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/login' element={<LoginForm />} />
+            <Route path='/register' element={<RegistrationForm />} />
+            <Route path='*' element={<Errorpage />} />
+          </Routes>
+          <Footer />
+        </BrowserRouter>
       </ThemeProvider>
     </div>
   )

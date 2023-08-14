@@ -4,11 +4,16 @@ const FilterReducer = (state: any, action: any) => {
 
         case 'LOAD_FILTER_PRODUCTS':
             // Handle the action logic and update the state
+            let priceArray = action.payload.map((curElem: any) => curElem.price)
+            let maxNum = Math.max(...priceArray)
+
+
+
             return {
                 ...state,
                 filter_products: [...action.payload],
                 all_products: [...action.payload],
-
+                filters: { ...state.filters, maxPrice: maxNum, price: maxNum }
             };
         case 'SET_GRID_VIEW':
             return {
@@ -57,51 +62,76 @@ const FilterReducer = (state: any, action: any) => {
             }
 
         case 'UPDATE_FILTER-VALUE':
-            const { name, value } = action.payload as any
+            const { name, value } = action.payload;
 
             return {
                 ...state,
                 filters: {
                     ...state.filters,
-                    [name]: value
-                }
-            }
+                    [name]: value,
+                },
+            };
 
         case "FILTER_PRODUCTS":
             let { all_products } = state
             // console.log(all_products);
-            
+
             let tempFilterProduct = [...all_products]
-            const { text,category,company,color } = state.filters
-            console.log(category);
-            
+            const { text, category, company, color, price } = state.filters
+            // console.log(category);
+
 
             if (text) {
                 tempFilterProduct = tempFilterProduct.filter((each: any) => {
                     return each.name.toLowerCase().includes(text)
                 })
             }
-            if (category!=="all") {
+            if (category !== "all") {
                 tempFilterProduct = tempFilterProduct.filter((each: any) => {
-                    return each.category===category
+                    return each.category === category
                 })
             }
-           
-            if (company!=="all") {
+
+            if (company !== "all") {
                 tempFilterProduct = tempFilterProduct.filter((each: any) => {
                     return each.company.toLowerCase() === company.toLowerCase()
                 })
             }
-           
-            if (color!=="all") {
+
+            if (color !== "all") {
                 tempFilterProduct = tempFilterProduct.filter((each: any) => {
                     return each.colors.includes(color)
                 })
+            }
+            if (price === 0) {
+                tempFilterProduct = tempFilterProduct.filter(
+                    (curElem) => curElem.price === price
+                );
+            } else {
+                tempFilterProduct = tempFilterProduct.filter(
+                    (curElem) => curElem.price <= price
+                );
             }
             return {
                 ...state,
                 filter_products: tempFilterProduct
             }
+
+        case "CLEAR_FILTERS":
+            return {
+                ...state,
+                filters: {
+                    ...state.filters,
+                    text: "",
+                    category: "all",
+                    company: "all",
+                    color: "all",
+                    maxPrice: state.filters.minPrice,
+                    price: state.filters.maxPrice,
+                    minPrice: state.filters.maxPrice,
+                },
+            };
+
         default:
             return state;
     }

@@ -10,7 +10,9 @@ interface FilterInitialState {
     grid_view: boolean
     sorting_value: string
     filters: any
-    
+    maxPrice: number
+    price: number
+    minPrice: number
 }
 
 const FilterContext = createContext<FilterInitialState | undefined>(undefined)
@@ -21,11 +23,14 @@ const initialState: any = {
     sorting_value: "lowest",
     filters: {
         text: "",
-        category:"all",
-        company:"all",
-        color:"all"
+        category: "all",
+        company: "all",
+        color: "all",
+        maxPrice: 0,
+        price: 0,
+        minPrice: 0
     },
-   
+
 }
 
 
@@ -47,6 +52,9 @@ export const FilterContextProvider: React.FC<any> = ({ children }: AppProviderPr
         // console.log(userValue); 
         dispatch({ type: "GET_SORT_VALUE", payload: userValue });
     };
+    const clearFilters = () => {
+        dispatch({ type: "CLEAR_FILTERS" })
+    }
 
     const updateFilterValue = (event: any) => {
         let name = event.target.name
@@ -64,7 +72,7 @@ export const FilterContextProvider: React.FC<any> = ({ children }: AppProviderPr
     }, [products]);
 
     return (
-        <FilterContext.Provider value={{ ...state, setGridView, setListView, sorting, updateFilterValue}}>
+        <FilterContext.Provider value={{ ...state, setGridView, setListView, sorting, updateFilterValue,clearFilters }}>
             {children}
         </FilterContext.Provider>
     )
