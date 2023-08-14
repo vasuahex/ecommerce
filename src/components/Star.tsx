@@ -6,9 +6,11 @@ interface StarsReviews{
     reviews:number
 }
 const Star:React.FC<StarsReviews> = ({stars,reviews}) => {
-  const ratingStar = Array.from({ length: 5 }, (elem, index) => {
+  const ratingStar = Array.from({ length: 5 }, (elem,index) => {
     let number = index + 0.5;
     // debugger;
+    console.log(elem);
+    
     return (
       <span key={index}>
         {stars >= index + 1 ? (

@@ -13,9 +13,9 @@ import AddToCart from "./components/AddToCart";
 
 const SingleProduct = () => {
   const API = "https://api.pujakaitem.com/api/products"
-  const { isSingleLoading, singleProduct, getSingleProduct } = useProductContext() as any
+  const { singleProduct, getSingleProduct } = useProductContext() as any
   const { id } = useParams()
-  const { id: alias, name, company, price, description, category, stock, stars, reviews, image } = singleProduct as any
+  const { id: name, company, price, description,stock, stars, reviews, image } = singleProduct as any
 
 
 
