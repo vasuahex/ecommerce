@@ -7,6 +7,8 @@ import { Button } from '../styles/Button'
 
 const AddToCart: React.FC<any> = ({ product }) => {
   const { id, colors, stock } = product as any
+  console.log(id);
+  
   const [color, setColor] = useState(colors[0])
   const [amount, setAmount] = useState(1)
   const setDecrease = () => {
